@@ -11,7 +11,6 @@ const recentItems = [
   {title:'Daredevil: Born Again',year:'2025',type:'Series',image:'',url:'https://www.marvel.com/tv-shows/daredevil-born-again/1'}
 ];
 
-// MCU projects in actual release order, not in-universe chronology.
 const timelineItems = [
   {date:'MAY 2008',title:'Iron Man',type:'movie',phase:'Phase One'},
   {date:'JUN 2008',title:'The Incredible Hulk',type:'movie',phase:'Phase One'},
@@ -74,29 +73,24 @@ const phases = [
   {n:'PHASE SIX',saga:'Multiverse Saga',years:'2025–2027',desc:'The Fantastic Four arrive and the road leads toward Doomsday and Secret Wars.'}
 ];
 
+const wikiPages = {
+  'Iron Man':'Iron Man (2008 film)','The Incredible Hulk':'The Incredible Hulk (film)','Iron Man 2':'Iron Man 2','Thor':'Thor (film)',
+  'Captain America: The First Avenger':'Captain America: The First Avenger','The Avengers':'The Avengers (2012 film)','Iron Man 3':'Iron Man 3','Thor: The Dark World':'Thor: The Dark World',
+  'Captain America: The Winter Soldier':'Captain America: The Winter Soldier','Guardians of the Galaxy':'Guardians of the Galaxy (film)','Avengers: Age of Ultron':'Avengers: Age of Ultron','Ant-Man':'Ant-Man (film)',
+  'Captain America: Civil War':'Captain America: Civil War','Doctor Strange':'Doctor Strange (2016 film)','Guardians of the Galaxy Vol. 2':'Guardians of the Galaxy Vol. 2','Spider-Man: Homecoming':'Spider-Man: Homecoming',
+  'Thor: Ragnarok':'Thor: Ragnarok','Black Panther':'Black Panther (film)','Avengers: Infinity War':'Avengers: Infinity War','Ant-Man and the Wasp':'Ant-Man and the Wasp',
+  'Captain Marvel':'Captain Marvel (film)','Avengers: Endgame':'Avengers: Endgame','Spider-Man: Far From Home':'Spider-Man: Far From Home','Black Widow':'Black Widow (2021 film)',
+  'Shang-Chi and the Legend of the Ten Rings':'Shang-Chi and the Legend of the Ten Rings','Eternals':'Eternals (film)','Spider-Man: No Way Home':'Spider-Man: No Way Home','Doctor Strange in the Multiverse of Madness':'Doctor Strange in the Multiverse of Madness',
+  'Thor: Love and Thunder':'Thor: Love and Thunder','Black Panther: Wakanda Forever':'Black Panther: Wakanda Forever','Ant-Man and the Wasp: Quantumania':'Ant-Man and the Wasp: Quantumania','Guardians of the Galaxy Vol. 3':'Guardians of the Galaxy Vol. 3',
+  'The Marvels':'The Marvels','Deadpool & Wolverine':'Deadpool & Wolverine','Captain America: Brave New World':'Captain America: Brave New World','Thunderbolts*':'Thunderbolts*',
+  'The Fantastic Four: First Steps':'The Fantastic Four: First Steps','Spider-Man: Brand New Day':'Spider-Man: Brand New Day'
+};
+
 const artPresets = [
-  ['#7f151b','#d6a538'],['#17384b','#5ca15d'],['#771117','#c3c5ca'],['#273e62','#9bb8d2'],
-  ['#9d1522','#e5dfcc'],['#283653','#8a2c32'],['#5a1517','#d48232'],['#102442','#6a83a8'],
-  ['#213a56','#a9bac9'],['#1a2848','#ad416f'],['#4d1820','#ba4c51'],['#42175e','#bd6b44'],
-  ['#172a48','#bd2634'],['#4c214e','#d18a34'],['#5a2040','#477ac0'],['#0e3471','#b51e29'],
-  ['#1b3359','#d34e31'],['#161616','#7c5d91'],['#31204d','#d57b28'],['#7f1017','#d1b6a0'],
-  ['#232a4d','#c45161'],['#252946','#754697'],['#11346a','#c22b31'],['#48121e','#d8a7ab'],
-  ['#153326','#c09b43'],['#76171b','#ad9856'],['#272930','#d6d2c8'],['#b31d28','#1d4c89'],
-  ['#6a2f22','#d1982e'],['#132d45','#8459a8'],['#722429','#d6b15f'],['#244b68','#6a7d8e'],
-  ['#4d252a','#d27959'],['#9c1b28','#d3aa2f'],['#42141a','#8999a4'],['#1c5277','#e6a65f']
+  ['#7f151b','#d6a538'],['#17384b','#5ca15d'],['#771117','#c3c5ca'],['#273e62','#9bb8d2'],['#9d1522','#e5dfcc'],['#283653','#8a2c32'],['#5a1517','#d48232'],['#102442','#6a83a8'],['#213a56','#a9bac9'],['#1a2848','#ad416f'],['#4d1820','#ba4c51'],['#42175e','#bd6b44']
 ];
 
-const libraryItems = timelineItems
-  .filter(x => x.type === 'movie' || x.type === 'series')
-  .map((x,index) => ({
-    title:x.title,
-    year:x.date.slice(-4),
-    date:x.date,
-    type:x.type,
-    phase:x.phase,
-    colors:artPresets[index % artPresets.length],
-    image:x.title==='The Fantastic Four: First Steps'?'https://i.ytimg.com/vi/pAsmrKyMqaA/maxresdefault.jpg':x.title==='Spider-Man: Brand New Day'?'https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg':''
-  }));
+const libraryItems = timelineItems.filter(x => x.type === 'movie' || x.type === 'series').map((x,index) => ({...x,year:x.date.slice(-4),colors:artPresets[index % artPresets.length],wiki:wikiPages[x.title] || ''}));
 
 const releaseStack = document.querySelector('#releaseStack');
 const recentGrid = document.querySelector('#recentGrid');
@@ -114,16 +108,36 @@ function renderTimeline(){
   timelineList.innerHTML=visible.map(x=>`<article class="timeline-item"><span class="timeline-year">${x.date}</span><div><strong>${x.title}</strong><small>${x.phase}</small></div><span>${x.type==='movie'?'Movie':'Series'}</span></article>`).join('');
 }
 function renderPhases(){phaseGrid.innerHTML=phases.map((p,i)=>`<article class="phase-card"><span>0${i+1} · ${p.saga}</span><h3>${p.n}</h3><b>${p.years}</b><p>${p.desc}</p></article>`).join('')}
+
+async function loadPosterArt(){
+  const cards=[...libraryGrid.querySelectorAll('[data-wiki]')];
+  await Promise.all(cards.map(async media=>{
+    const page=media.dataset.wiki;
+    if(!page) return;
+    try{
+      const res=await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(page)}`);
+      if(!res.ok) return;
+      const data=await res.json();
+      const src=data.originalimage?.source || data.thumbnail?.source;
+      if(!src) return;
+      const img=new Image();
+      img.alt=media.dataset.title + ' poster';
+      img.loading='lazy';
+      img.src=src;
+      img.onload=()=>{media.innerHTML='';media.appendChild(img);media.classList.add('has-poster')};
+    }catch(e){}
+  }));
+}
+
 function renderLibrary(){
   const q=searchInput.value.trim().toLowerCase();
   const visible=libraryItems.filter(x=>(libraryFilter==='all'||x.type===libraryFilter)&&x.title.toLowerCase().includes(q));
   libraryGrid.innerHTML=visible.map(x=>{
     const [c1,c2]=x.colors;
-    const visual=x.image
-      ? `<div class="title-art image-art" style="background-image:linear-gradient(180deg,transparent 35%,rgba(5,6,9,.9)),url('${x.image}')"><span class="art-phase">${x.phase}</span><strong>${x.title}</strong></div>`
-      : `<div class="title-art" style="--card-a:${c1};--card-b:${c2}"><span class="art-phase">${x.phase}</span><span class="art-marvel">MARVEL STUDIOS</span><strong>${x.title}</strong><span class="art-year">${x.year}</span></div>`;
-    return `<article class="poster-card">${visual}<div class="poster-copy"><span>${x.date} · ${x.type==='movie'?'Movie':'Series'}</span><h3>${x.title}</h3><p>${x.phase}</p></div></article>`;
+    const fallback=`<div class="title-art" style="--card-a:${c1};--card-b:${c2}"><span class="art-phase">${x.phase}</span><span class="art-marvel">MARVEL STUDIOS</span><strong>${x.title}</strong><span class="art-year">${x.year}</span></div>`;
+    return `<article class="poster-card"><div class="poster-media" data-wiki="${x.wiki}" data-title="${x.title.replaceAll('&','&amp;').replaceAll('"','&quot;')}">${fallback}</div><div class="poster-copy"><span>${x.date} · ${x.type==='movie'?'Movie':'Series'}</span><h3>${x.title}</h3><p>${x.phase}</p></div></article>`;
   }).join('') || '<p class="section-note">No matches.</p>';
+  loadPosterArt();
 }
 
 document.querySelectorAll('[data-timeline-filter]').forEach(btn=>btn.onclick=()=>{timelineFilter=btn.dataset.timelineFilter;document.querySelectorAll('[data-timeline-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderTimeline()});
@@ -132,6 +146,5 @@ searchInput.addEventListener('input',renderLibrary);
 const menuButton=document.querySelector('#menuButton'),mainNav=document.querySelector('#mainNav');
 menuButton.onclick=()=>mainNav.classList.toggle('open');
 mainNav.querySelectorAll('a').forEach(a=>a.onclick=()=>mainNav.classList.remove('open'));
-
 document.querySelectorAll('[data-timeline-filter]').forEach(b=>b.classList.toggle('active',b.dataset.timelineFilter==='movie'));
 renderTimeline();renderPhases();renderLibrary();

@@ -22,66 +22,73 @@
       <button class="menu-button" id="menuButton" aria-label="Open navigation" aria-expanded="false">☰</button>
       <nav class="nav" id="mainNav" aria-label="Main navigation">
         <a href="#home">Home</a>
+        <a href="#featured">Featured</a>
         <a href="#timeline">Timeline</a>
         <a href="#phases">Phases</a>
         <a href="#library">Movies & Shows</a>
+        <a href="#trailers">Trailers</a>
         <a href="#upcoming">Upcoming</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" id="home">
+        <div class="hero-backdrop"></div>
         <div class="hero-grid"></div>
-        <div class="hero-glow hero-glow-one"></div>
-        <div class="hero-glow hero-glow-two"></div>
         <div class="hero-content">
           <p class="eyebrow">THE MARVEL CINEMATIC UNIVERSE</p>
           <h1>Your MCU command center.</h1>
-          <p class="hero-copy">Follow the timeline, jump between phases, track what's next, and keep the entire MCU in one place.</p>
+          <p class="hero-copy">Follow the timeline, jump between phases, revisit the biggest moments, watch official trailers, and keep the entire MCU in one place.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#timeline">Explore the timeline</a>
+            <a class="button button-primary" href="#featured">Start exploring</a>
             <a class="button button-secondary" href="#upcoming">See what's next</a>
           </div>
         </div>
         <div class="hero-stats" aria-label="MCU Central quick stats">
           <div><strong>6</strong><span>Phases</span></div>
-          <div><strong>∞</strong><span>Timelines</span></div>
-          <div><strong>1</strong><span>Universe hub</span></div>
+          <div><strong>2</strong><span>Sagas</span></div>
+          <div><strong>∞</strong><span>Possibilities</span></div>
         </div>
       </section>
 
       <section class="section section-tight">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">QUICK ACCESS</p>
-            <h2>Pick your path</h2>
-          </div>
-        </div>
+        <div class="section-heading"><div><p class="eyebrow">QUICK ACCESS</p><h2>Pick your path</h2></div></div>
         <div class="quick-grid">
           <a class="quick-card" href="#timeline"><span class="quick-icon">⌛</span><div><strong>Timeline</strong><p>Follow the MCU in story order.</p></div><span>→</span></a>
           <a class="quick-card" href="#phases"><span class="quick-icon">◈</span><div><strong>Phases</strong><p>Browse the Infinity and Multiverse sagas.</p></div><span>→</span></a>
           <a class="quick-card" href="#library"><span class="quick-icon">▣</span><div><strong>Movies & Shows</strong><p>One searchable MCU library.</p></div><span>→</span></a>
-          <a class="quick-card" href="#upcoming"><span class="quick-icon">✦</span><div><strong>Upcoming</strong><p>Track confirmed future releases.</p></div><span>→</span></a>
+          <a class="quick-card" href="#trailers"><span class="quick-icon">▶</span><div><strong>Trailers</strong><p>Official Marvel Studios trailers.</p></div><span>→</span></a>
+        </div>
+      </section>
+
+      <section class="section" id="featured">
+        <div class="section-heading">
+          <div><p class="eyebrow">FEATURED</p><h2>Across the multiverse</h2></div>
+          <p class="heading-copy">A rotating spotlight for major MCU movies, shows, characters, and moments.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card feature-endgame">
+            <img src="https://media.vogue.mx/photos/5cc326b7224e5635d0ca74b9/2:3/w_1280,c_limit/avengers-endgame.jpg" alt="Avengers: Endgame poster" loading="lazy" />
+            <div class="feature-overlay"><span class="feature-tag">INFINITY SAGA</span><h3>Avengers: Endgame</h3><p>The surviving Avengers assemble for one final attempt to undo Thanos' victory and restore the universe.</p><a href="https://www.marvel.com/movies/avengers-endgame" target="_blank" rel="noopener">Official Marvel page →</a></div>
+          </article>
+          <article class="feature-card feature-loki">
+            <img src="https://bkimg.cdn.bcebos.com/pic/a8773912b31bb051f819a95bf42dcdb44aed2e734a32" alt="Loki Season 2 artwork" loading="lazy" />
+            <div class="feature-overlay"><span class="feature-tag">MULTIVERSE SAGA</span><h3>Loki</h3><p>The God of Mischief is pulled out of his timeline and into the TVA, where time itself becomes the battlefield.</p><a href="https://www.marvel.com/tv-shows/loki" target="_blank" rel="noopener">Official Marvel page →</a></div>
+          </article>
         </div>
       </section>
 
       <section class="section" id="timeline">
         <div class="section-heading split-heading">
           <div><p class="eyebrow">MCU TIMELINE</p><h2>Follow the story</h2></div>
-          <div class="segmented" role="group" aria-label="Timeline filter">
-            <button class="segment active" data-timeline-filter="all">All</button>
-            <button class="segment" data-timeline-filter="movie">Movies</button>
-            <button class="segment" data-timeline-filter="series">Series</button>
-          </div>
+          <div class="segmented" role="group" aria-label="Timeline filter"><button class="segment active" data-timeline-filter="all">All</button><button class="segment" data-timeline-filter="movie">Movies</button><button class="segment" data-timeline-filter="series">Series</button></div>
         </div>
         <div class="timeline" id="timelineList"></div>
-        <p class="section-note">This first build uses a curated starter timeline. We can expand it into a full canon-order tracker next.</p>
+        <p class="section-note">This is a curated story-order timeline. We’ll keep expanding it toward a full MCU canon tracker.</p>
       </section>
 
       <section class="section" id="phases">
-        <div class="section-heading">
-          <div><p class="eyebrow">THE SAGAS</p><h2>Explore every phase</h2></div>
-        </div>
+        <div class="section-heading"><div><p class="eyebrow">THE SAGAS</p><h2>Explore every phase</h2></div></div>
         <div class="phase-grid" id="phaseGrid"></div>
       </section>
 
@@ -90,40 +97,25 @@
           <div><p class="eyebrow">MCU LIBRARY</p><h2>Movies & shows</h2></div>
           <label class="search-box"><span>⌕</span><input id="librarySearch" type="search" placeholder="Search titles..." autocomplete="off" /></label>
         </div>
-        <div class="filter-row" id="libraryFilters">
-          <button class="chip active" data-library-filter="all">All</button>
-          <button class="chip" data-library-filter="movie">Movies</button>
-          <button class="chip" data-library-filter="series">Series</button>
-          <button class="chip" data-library-filter="special">Specials</button>
-        </div>
+        <div class="filter-row" id="libraryFilters"><button class="chip active" data-library-filter="all">All</button><button class="chip" data-library-filter="movie">Movies</button><button class="chip" data-library-filter="series">Series</button><button class="chip" data-library-filter="special">Specials</button></div>
         <div class="poster-grid" id="libraryGrid"></div>
       </section>
 
-      <section class="section upcoming-section" id="upcoming">
-        <div class="section-heading">
-          <div><p class="eyebrow">ON THE HORIZON</p><h2>Upcoming releases</h2></div>
-          <p class="heading-copy">Confirmed dates shown here are based on Marvel's official listings as of August 2026.</p>
+      <section class="section trailer-section" id="trailers">
+        <div class="section-heading"><div><p class="eyebrow">TRAILER VAULT</p><h2>Watch the latest</h2></div><p class="heading-copy">Official Marvel video, right inside MCU Central.</p></div>
+        <div class="trailer-grid">
+          <article class="trailer-main"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/pAsmrKyMqaA" title="The Fantastic Four: First Steps official trailer" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="trailer-copy"><span>MARVEL STUDIOS</span><h3>The Fantastic Four: First Steps</h3><p>Reed, Sue, Johnny and Ben face a cosmic threat in Marvel Studios' retro-futuristic take on the First Family.</p></div></article>
+          <article class="trailer-side"><img src="https://i.ytimg.com/vi/AzMo-FgRp64/maxresdefault.jpg" alt="Fantastic Four teaser thumbnail" loading="lazy" /><div><span>TEASER</span><h3>Prepare 4 Launch</h3><p>The first look at Marvel's First Family entering the MCU.</p><a href="https://www.marvel.com/articles/movies/marvel-studios-the-fantastic-four-first-steps-trailer-launch" target="_blank" rel="noopener">Read on Marvel →</a></div></article>
         </div>
-        <div class="upcoming-grid" id="upcomingGrid"></div>
       </section>
 
-      <section class="section news-shell">
-        <div class="section-heading">
-          <div><p class="eyebrow">NEXT UP FOR MCU CENTRAL</p><h2>Built to grow</h2></div>
-        </div>
-        <div class="roadmap-grid">
-          <article><span>01</span><h3>Live news</h3><p>Marvel Studios news from trusted sources, all in one feed.</p></article>
-          <article><span>02</span><h3>Trailer vault</h3><p>Official trailers organized by movie, show, and release.</p></article>
-          <article><span>03</span><h3>Character pages</h3><p>Appearances, status, affiliations, and connected projects.</p></article>
-          <article><span>04</span><h3>Watch tracker</h3><p>Optional progress tracking for rewatches and new releases.</p></article>
-        </div>
+      <section class="section upcoming-section" id="upcoming">
+        <div class="section-heading"><div><p class="eyebrow">ON THE HORIZON</p><h2>Upcoming releases</h2></div><p class="heading-copy">The next major MCU projects currently on our radar.</p></div>
+        <div class="upcoming-grid" id="upcomingGrid"></div>
       </section>
     </main>
 
-    <footer>
-      <div class="brand footer-brand"><span class="brand-mark">M</span><span class="brand-copy"><strong>MCU</strong><small>CENTRAL</small></span></div>
-      <p>Fan-made project. Not affiliated with Marvel or Disney.</p>
-    </footer>
+    <footer><div class="brand footer-brand"><span class="brand-mark">M</span><span class="brand-copy"><strong>MCU</strong><small>CENTRAL</small></span></div><p>Fan-made project. Not affiliated with Marvel or Disney.</p></footer>
   </div>
   <script src="app.js"></script>
 </body>

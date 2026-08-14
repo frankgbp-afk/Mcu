@@ -17,7 +17,7 @@
   <a class="brand" href="#home"><span class="brand-mark">M</span><span><strong>MCU</strong><small>CENTRAL</small></span></a>
   <button class="menu-button" id="menuButton" aria-label="Open navigation">☰</button>
   <nav class="nav" id="mainNav">
-    <a href="#home">Home</a><a href="#releases">Releases</a><a href="#timeline">Timeline</a><a href="#phases">Phases</a><a href="#library">Library</a><a href="#trailers">Trailers</a>
+    <a href="#home">Home</a><a href="#releases">Releases</a><a href="#timeline">Release Order</a><a href="#phases">Phases</a><a href="#library">Library</a><a href="#trailers">Trailers</a>
   </nav>
 </header>
 <main>
@@ -26,7 +26,7 @@
     <div class="hero-content">
       <p class="eyebrow">MCU CENTRAL · UPDATED AUGUST 2026</p>
       <h1>The MCU.<br>All in one place.</h1>
-      <p>Current releases, what’s coming next, official trailers, the MCU library, phases and timelines — built as a clean fan dashboard instead of another wall of links.</p>
+      <p>Current releases, what’s coming next, official trailers, the MCU library, phases and release order — built as a clean fan dashboard instead of another wall of links.</p>
       <div class="hero-actions"><a class="button primary" href="#releases">What’s happening now</a><a class="button" href="#library">Browse the MCU</a></div>
     </div>
   </section>
@@ -48,9 +48,9 @@
   </section>
 
   <section class="section" id="timeline">
-    <div class="section-heading split"><div><p class="eyebrow">TIMELINE</p><h2>Release timeline</h2></div><div class="segmented"><button class="segment active" data-timeline-filter="all">All</button><button class="segment" data-timeline-filter="movie">Movies</button><button class="segment" data-timeline-filter="series">Series</button></div></div>
+    <div class="section-heading split"><div><p class="eyebrow">RELEASE ORDER</p><h2>MCU releases</h2></div><div class="segmented"><button class="segment" data-timeline-filter="all">All</button><button class="segment active" data-timeline-filter="movie">Movies</button><button class="segment" data-timeline-filter="series">Series</button></div></div>
     <div class="timeline" id="timelineList"></div>
-    <p class="section-note">This view is release order so it stays unambiguous. A separate in-universe chronology can be added as its own timeline.</p>
+    <p class="section-note">Movies are shown in theatrical release order by default. Switch to All or Series whenever you want the Disney+ releases mixed in.</p>
   </section>
 
   <section class="section" id="phases">
@@ -60,7 +60,7 @@
 
   <section class="section" id="library">
     <div class="section-heading split"><div><p class="eyebrow">MCU LIBRARY</p><h2>Movies & shows</h2></div><label class="search-box">⌕ <input id="librarySearch" type="search" placeholder="Search titles…" /></label></div>
-    <div class="filter-row"><button class="chip active" data-library-filter="all">All</button><button class="chip" data-library-filter="movie">Movies</button><button class="chip" data-library-filter="series">Series</button><button class="chip" data-library-filter="special">Specials</button></div>
+    <div class="filter-row"><button class="chip active" data-library-filter="all">All</button><button class="chip" data-library-filter="movie">Movies</button><button class="chip" data-library-filter="series">Series</button></div>
     <div class="poster-grid" id="libraryGrid"></div>
   </section>
 

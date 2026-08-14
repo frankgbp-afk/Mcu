@@ -1,10 +1,26 @@
 {
+  "id": "./",
   "name": "MCU Central",
   "short_name": "MCU Central",
-  "start_url": "./",
+  "description": "A fan-made MCU hub for release order, movies, TV, phases and trailers.",
+  "start_url": "./#home",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#07080c",
-  "theme_color": "#0a0a0f",
-  "description": "A fan-made MCU timeline, phase, release, and news hub.",
-  "icons": []
+  "theme_color": "#09090d",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }

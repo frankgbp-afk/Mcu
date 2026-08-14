@@ -1,18 +1,18 @@
-// Poster artwork for MCU series currently included in the library.
-// Kept separate so poster updates do not disturb the main release data.
+// Verified promotional artwork for MCU series currently included in the library.
+// Uses Disney/Marvel-hosted assets where available; trailer artwork is used as a safe fallback.
 const tvPosterMap = {
-  'WandaVision': 'https://upload.wikimedia.org/wikipedia/en/2/20/WandaVision_teaser_poster.jpg',
-  'The Falcon and the Winter Soldier': 'https://upload.wikimedia.org/wikipedia/en/7/7e/The_Falcon_and_the_Winter_Soldier_logo.jpg',
-  'Loki': 'https://upload.wikimedia.org/wikipedia/en/4/4e/Loki_%28TV_series%29_poster.jpg',
-  'Loki Season 2': 'https://upload.wikimedia.org/wikipedia/en/4/4e/Loki_%28TV_series%29_poster.jpg',
-  'Moon Knight': 'https://upload.wikimedia.org/wikipedia/en/2/24/Moon_Knight_%28TV_series%29_poster.jpg',
-  'Ms. Marvel': 'https://upload.wikimedia.org/wikipedia/en/7/76/Ms._Marvel_%28TV_series%29_poster.jpg',
-  'She-Hulk: Attorney at Law': 'https://upload.wikimedia.org/wikipedia/en/3/3f/She-Hulk_Attorney_at_Law_poster.jpg',
-  'Secret Invasion': 'https://upload.wikimedia.org/wikipedia/en/3/36/Secret_Invasion_%28miniseries%29_poster.jpg',
-  'Echo': 'https://upload.wikimedia.org/wikipedia/en/8/8e/Echo_%28miniseries%29_poster.jpg',
-  'Agatha All Along': 'https://upload.wikimedia.org/wikipedia/en/4/4f/Agatha_All_Along_%28miniseries%29_poster.jpg',
-  'Daredevil: Born Again': 'https://upload.wikimedia.org/wikipedia/en/1/13/Daredevil_Born_Again_poster.jpg',
-  'Ironheart': 'https://upload.wikimedia.org/wikipedia/en/5/5d/Ironheart_%28miniseries%29_poster.jpg'
+  'WandaVision': 'https://lumiere-a.akamaihd.net/v1/images/br_digital_payoff_keyart_v3_lg_44751099.jpeg',
+  'The Falcon and the Winter Soldier': 'https://lumiere-a.akamaihd.net/v1/images/fws_digital_payoff_keyart_v1b_lg_c87a0542.jpeg',
+  'Loki': 'https://lumiere-a.akamaihd.net/v1/images/loki_digital_keyart_payoff_943c5bc1.jpeg',
+  'Loki Season 2': 'https://lumiere-a.akamaihd.net/v1/images/loki_digital_keyart_payoff_943c5bc1.jpeg',
+  'Moon Knight': 'https://lumiere-a.akamaihd.net/v1/images/moon_knight_digital_keyart_vert_v9_lg_cf9d31f8.jpeg',
+  'Ms. Marvel': 'https://lumiere-a.akamaihd.net/v1/images/ms_11f28a6a.jpeg',
+  'She-Hulk: Attorney at Law': 'https://lumiere-a.akamaihd.net/v1/images/shehulk_payoff_1-sheet_litho_rgb_7ae85577.jpeg',
+  'Secret Invasion': 'https://lumiere-a.akamaihd.net/v1/images/secretinvasion_teaser_digital_ka_v8b_lg_79a1fa00.jpeg',
+  'Echo': 'https://lumiere-a.akamaihd.net/v1/images/echo_teaser_digital_ka_v4_lg_93bc3b27.jpeg',
+  'Agatha All Along': 'https://lumiere-a.akamaihd.net/v1/images/agatha_all_along_digital_ka_payoff_v4_lg_d6651e8e.jpeg',
+  'Daredevil: Born Again': 'https://i.ytimg.com/vi/7xALolZzhSM/maxresdefault.jpg',
+  'Ironheart': 'https://i.ytimg.com/vi/WpW36ldAqnM/maxresdefault.jpg'
 };
 
 Object.assign(posterMap, tvPosterMap);

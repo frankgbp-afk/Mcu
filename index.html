@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="mobile-fixes.css" />
+  <link rel="stylesheet" href="styles.css?v=17" />
+  <link rel="stylesheet" href="mobile-fixes.css?v=17" />
 </head>
 <body>
 <header class="site-header">
@@ -22,59 +22,15 @@
   </nav>
 </header>
 <main>
-  <section class="hero" id="home">
-    <div class="hero-image"></div>
-    <div class="hero-content">
-      <p class="eyebrow">MCU CENTRAL · UPDATED AUGUST 2026</p>
-      <h1>The MCU.<br>All in one place.</h1>
-      <p>Current releases, what’s coming next, official trailers, the MCU library, phases and release order — built as a clean fan dashboard instead of another wall of links.</p>
-      <div class="hero-actions"><a class="button primary" href="#releases">What’s happening now</a><a class="button" href="#library">Browse the MCU</a></div>
-    </div>
-  </section>
-
-  <section class="section release-section" id="releases">
-    <div class="section-heading"><div><p class="eyebrow">RIGHT NOW</p><h2>MCU release radar</h2></div><p>Past, present and next — no outdated “upcoming” cards hanging around after release day.</p></div>
-    <div class="release-radar">
-      <article class="release-hero">
-        <img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" alt="Spider-Man: Brand New Day official trailer artwork" />
-        <div class="release-overlay"><span class="status now">NOW PLAYING</span><h3>Spider-Man: Brand New Day</h3><p>Peter Parker is back on the big screen. Released July 31, 2026.</p><div class="link-row"><a href="https://www.marvel.com/movies/spider-man-brand-new-day" target="_blank" rel="noopener">Marvel page ↗</a><a href="https://www.youtube.com/watch?v=8TZMtslA3UY" target="_blank" rel="noopener">Watch trailer ▶</a></div></div>
-      </article>
-      <div class="release-stack" id="releaseStack"></div>
-    </div>
-  </section>
-
-  <section class="section latest-section">
-    <div class="section-heading"><div><p class="eyebrow">RECENT MCU</p><h2>Catch up</h2></div></div>
-    <div class="recent-grid" id="recentGrid"></div>
-  </section>
-
-  <section class="section" id="timeline">
-    <div class="section-heading split"><div><p class="eyebrow">RELEASE ORDER</p><h2>MCU releases</h2></div><div class="segmented"><button class="segment" data-timeline-filter="all">All</button><button class="segment active" data-timeline-filter="movie">Movies</button><button class="segment" data-timeline-filter="series">Series</button></div></div>
-    <div class="timeline" id="timelineList"></div>
-    <p class="section-note">Movies are shown in theatrical release order by default. Switch to All or Series whenever you want the Disney+ releases mixed in.</p>
-  </section>
-
-  <section class="section" id="phases">
-    <div class="section-heading"><div><p class="eyebrow">THE SAGAS</p><h2>Six phases</h2></div></div>
-    <div class="phase-grid" id="phaseGrid"></div>
-  </section>
-
-  <section class="section" id="library">
-    <div class="section-heading split"><div><p class="eyebrow">MCU LIBRARY</p><h2>Movies & shows</h2></div><label class="search-box">⌕ <input id="librarySearch" type="search" placeholder="Search titles…" /></label></div>
-    <div class="filter-row"><button class="chip active" data-library-filter="all">All</button><button class="chip" data-library-filter="movie">Movies</button><button class="chip" data-library-filter="series">Series</button></div>
-    <div class="poster-grid" id="libraryGrid"></div>
-  </section>
-
-  <section class="section" id="trailers">
-    <div class="section-heading"><div><p class="eyebrow">TRAILER VAULT</p><h2>Official trailers</h2></div></div>
-    <div class="trailer-grid">
-      <a class="trailer-card" href="https://www.youtube.com/watch?v=8TZMtslA3UY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" alt="Spider-Man Brand New Day trailer"><div><span>NOW PLAYING</span><h3>Spider-Man: Brand New Day</h3><p>Official trailer</p></div></a>
-      <a class="trailer-card" href="https://www.youtube.com/watch?v=399Ez7WHK5s" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/399Ez7WHK5s/maxresdefault.jpg" alt="Avengers Doomsday teaser"><div><span>DECEMBER 2026</span><h3>Avengers: Doomsday</h3><p>Official teaser</p></div></a>
-      <a class="trailer-card" href="https://www.youtube.com/watch?v=pAsmrKyMqaA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/pAsmrKyMqaA/maxresdefault.jpg" alt="Fantastic Four First Steps trailer"><div><span>2025</span><h3>The Fantastic Four: First Steps</h3><p>Official trailer</p></div></a>
-    </div>
-  </section>
+  <section class="hero" id="home"><div class="hero-image"></div><div class="hero-content"><p class="eyebrow">MCU CENTRAL · UPDATED AUGUST 2026</p><h1>The MCU.<br>All in one place.</h1><p>Current releases, what’s coming next, official trailers, the MCU library, phases and release order — built as a clean fan dashboard instead of another wall of links.</p><div class="hero-actions"><a class="button primary" href="#releases">What’s happening now</a><a class="button" href="#library">Browse the MCU</a></div></div></section>
+  <section class="section release-section" id="releases"><div class="section-heading"><div><p class="eyebrow">RIGHT NOW</p><h2>MCU release radar</h2></div><p>Past, present and next — no outdated “upcoming” cards hanging around after release day.</p></div><div class="release-radar"><article class="release-hero"><img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" alt="Spider-Man: Brand New Day official trailer artwork" /><div class="release-overlay"><span class="status now">NOW PLAYING</span><h3>Spider-Man: Brand New Day</h3><p>Peter Parker is back on the big screen. Released July 31, 2026.</p><div class="link-row"><a href="https://www.marvel.com/movies/spider-man-brand-new-day" target="_blank" rel="noopener">Marvel page ↗</a><a href="https://www.youtube.com/watch?v=8TZMtslA3UY" target="_blank" rel="noopener">Watch trailer ▶</a></div></div></article><div class="release-stack" id="releaseStack"></div></div></section>
+  <section class="section latest-section"><div class="section-heading"><div><p class="eyebrow">RECENT MCU</p><h2>Catch up</h2></div></div><div class="recent-grid" id="recentGrid"></div></section>
+  <section class="section" id="timeline"><div class="section-heading split"><div><p class="eyebrow">RELEASE ORDER</p><h2>MCU releases</h2></div><div class="segmented"><button class="segment" data-timeline-filter="all">All</button><button class="segment active" data-timeline-filter="movie">Movies</button><button class="segment" data-timeline-filter="series">Series</button></div></div><div class="timeline" id="timelineList"></div><p class="section-note">Movies are shown in theatrical release order by default. Switch to All or Series whenever you want the Disney+ releases mixed in.</p></section>
+  <section class="section" id="phases"><div class="section-heading"><div><p class="eyebrow">THE SAGAS</p><h2>Six phases</h2></div></div><div class="phase-grid" id="phaseGrid"></div></section>
+  <section class="section" id="library"><div class="section-heading split"><div><p class="eyebrow">MCU LIBRARY</p><h2>Movies & shows</h2></div><label class="search-box">⌕ <input id="librarySearch" type="search" placeholder="Search titles…" /></label></div><div class="filter-row"><button class="chip active" data-library-filter="all">All</button><button class="chip" data-library-filter="movie">Movies</button><button class="chip" data-library-filter="series">Series</button></div><div class="poster-grid" id="libraryGrid"></div></section>
+  <section class="section" id="trailers"><div class="section-heading"><div><p class="eyebrow">TRAILER VAULT</p><h2>Official trailers</h2></div></div><div class="trailer-grid"><a class="trailer-card" href="https://www.youtube.com/watch?v=8TZMtslA3UY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" alt="Spider-Man Brand New Day trailer"><div><span>NOW PLAYING</span><h3>Spider-Man: Brand New Day</h3><p>Official trailer</p></div></a><a class="trailer-card" href="https://www.youtube.com/watch?v=399Ez7WHK5s" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/399Ez7WHK5s/maxresdefault.jpg" alt="Avengers Doomsday teaser"><div><span>DECEMBER 2026</span><h3>Avengers: Doomsday</h3><p>Official teaser</p></div></a><a class="trailer-card" href="https://www.youtube.com/watch?v=pAsmrKyMqaA" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/pAsmrKyMqaA/maxresdefault.jpg" alt="Fantastic Four First Steps trailer"><div><span>2025</span><h3>The Fantastic Four: First Steps</h3><p>Official trailer</p></div></a></div></section>
 </main>
 <footer><div class="brand"><span class="brand-mark">M</span><span><strong>MCU</strong><small>CENTRAL</small></span></div><p>Fan-made project. Not affiliated with Marvel or Disney.</p></footer>
-<script src="app.js"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>

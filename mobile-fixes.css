@@ -1,0 +1,34 @@
+/* Compact visual hierarchy for phones and narrow tablets. */
+@media (max-width:680px){
+  .release-radar{gap:10px}
+  .release-hero{min-height:0;display:grid;grid-template-columns:132px 1fr;border-radius:14px}
+  .release-hero img{position:relative;inset:auto;width:132px;height:100%;min-height:148px;object-fit:cover}
+  .release-hero:after{display:none}
+  .release-overlay{position:relative;left:auto;right:auto;bottom:auto;padding:14px;background:var(--panel)}
+  .release-overlay h3{font-size:24px;line-height:.95;margin:8px 0 5px}
+  .release-overlay p{font-size:10px;line-height:1.45}
+  .release-overlay .status{padding:5px 7px;font-size:7px}
+  .link-row{gap:9px;margin-top:10px;flex-wrap:wrap}
+  .link-row a{font-size:9px}
+
+  .trailer-grid{grid-template-columns:1fr;gap:9px}
+  .trailer-card{display:grid;grid-template-columns:132px 1fr;min-height:100px;border-radius:13px}
+  .trailer-card img{width:132px;height:100%;min-height:100px;aspect-ratio:auto;object-fit:cover}
+  .trailer-card div{padding:12px}
+  .trailer-card h3{font-size:19px;line-height:.95;margin:4px 0 2px}
+  .trailer-card span{font-size:7px}
+  .trailer-card p{font-size:9px}
+
+  .recent-card img,.recent-placeholder{aspect-ratio:16/9;max-height:105px}
+  .recent-card>div:last-child{padding:10px}
+  .recent-card h3{font-size:16px}
+
+  .timeline-year{font-size:11px;line-height:1.05}
+}
+
+@media (max-width:390px){
+  .release-hero{grid-template-columns:116px 1fr}
+  .release-hero img{width:116px}
+  .trailer-card{grid-template-columns:116px 1fr}
+  .trailer-card img{width:116px}
+}

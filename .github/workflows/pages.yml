@@ -21,35 +21,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout live site
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Checkout V2 preview
-        uses: actions/checkout@v4
-        with:
-          ref: v2-redesign
-          path: .v2-source
-
-      - name: Assemble preview path
-        run: |
-          rm -rf v2
-          mkdir v2
-          cp -a .v2-source/. v2/
-          rm -rf v2/.git v2/.github
-          rm -rf .v2-source
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

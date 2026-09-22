@@ -1,37 +1,144 @@
-const releaseStackItems=[
-{status:'NEXT',date:'OCT 14, 2026',title:'VisionQuest',detail:'Disney+ · Marvel Television',url:'https://www.marvel.com/articles/tv-shows/marvel-television-visionquest-release-date'},
-{status:'COMING',date:'DEC 18, 2026',title:'Avengers: Doomsday',detail:'In theaters',url:'https://www.marvel.com/movies/avengers-doomsday'},
-{status:'COMING',date:'DEC 17, 2027',title:'Avengers: Secret Wars',detail:'In theaters',url:'https://www.marvel.com/movies/avengers-secret-wars'}];
+(() => {
+  const { projects, phases, featuredSlug, nextUpSlugs, dataSnapshot } = window.MCU_DATA;
+  const app = document.querySelector('#app');
+  const formatMonth = value => new Intl.DateTimeFormat('en-US',{month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(`${value}-01T12:00:00Z`));
+  const formatMonthLong = value => new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${value}-01T12:00:00Z`));
+  const phaseLabel = n => `Phase ${['Zero','One','Two','Three','Four','Five','Six'][n] || n}`;
+  const typeLabel = type => type === 'movie' ? 'Movie' : 'Series';
+  const sorted = [...projects].sort((a,b)=>a.release.localeCompare(b.release));
+  const bySlug = slug => projects.find(p=>p.slug===slug);
 
-const recentItems=[
-{title:'Spider-Man: Brand New Day',year:'2026',type:'Movie',image:'https://upload.wikimedia.org/wikipedia/en/9/9a/Spider-Man_Brand_New_Day_poster.jpg',url:'https://www.marvel.com/movies/spider-man-brand-new-day'},
-{title:'The Fantastic Four: First Steps',year:'2025',type:'Movie',image:'https://upload.wikimedia.org/wikipedia/en/1/13/The_Fantastic_Four_First_Steps_poster.jpg',url:'https://www.marvel.com/movies/the-fantastic-four-first-steps'},
-{title:'Thunderbolts*',year:'2025',type:'Movie',image:'https://upload.wikimedia.org/wikipedia/en/9/90/Thunderbolts%2A_poster.jpg',url:'https://www.marvel.com/movies/thunderbolts'},
-{title:'Daredevil: Born Again',year:'2025',type:'Series',image:'',url:'https://www.marvel.com/tv-shows/daredevil-born-again/1'}];
+  document.querySelector('#dataSnapshot').textContent = `Data snapshot · ${dataSnapshot}`;
 
-const timelineItems=[
-{date:'MAY 2008',title:'Iron Man',type:'movie',phase:'Phase One'},{date:'JUN 2008',title:'The Incredible Hulk',type:'movie',phase:'Phase One'},{date:'MAY 2010',title:'Iron Man 2',type:'movie',phase:'Phase One'},{date:'MAY 2011',title:'Thor',type:'movie',phase:'Phase One'},{date:'JUL 2011',title:'Captain America: The First Avenger',type:'movie',phase:'Phase One'},{date:'MAY 2012',title:'The Avengers',type:'movie',phase:'Phase One'},
-{date:'MAY 2013',title:'Iron Man 3',type:'movie',phase:'Phase Two'},{date:'NOV 2013',title:'Thor: The Dark World',type:'movie',phase:'Phase Two'},{date:'APR 2014',title:'Captain America: The Winter Soldier',type:'movie',phase:'Phase Two'},{date:'AUG 2014',title:'Guardians of the Galaxy',type:'movie',phase:'Phase Two'},{date:'MAY 2015',title:'Avengers: Age of Ultron',type:'movie',phase:'Phase Two'},{date:'JUL 2015',title:'Ant-Man',type:'movie',phase:'Phase Two'},
-{date:'MAY 2016',title:'Captain America: Civil War',type:'movie',phase:'Phase Three'},{date:'NOV 2016',title:'Doctor Strange',type:'movie',phase:'Phase Three'},{date:'MAY 2017',title:'Guardians of the Galaxy Vol. 2',type:'movie',phase:'Phase Three'},{date:'JUL 2017',title:'Spider-Man: Homecoming',type:'movie',phase:'Phase Three'},{date:'NOV 2017',title:'Thor: Ragnarok',type:'movie',phase:'Phase Three'},{date:'FEB 2018',title:'Black Panther',type:'movie',phase:'Phase Three'},{date:'APR 2018',title:'Avengers: Infinity War',type:'movie',phase:'Phase Three'},{date:'JUL 2018',title:'Ant-Man and the Wasp',type:'movie',phase:'Phase Three'},{date:'MAR 2019',title:'Captain Marvel',type:'movie',phase:'Phase Three'},{date:'APR 2019',title:'Avengers: Endgame',type:'movie',phase:'Phase Three'},{date:'JUL 2019',title:'Spider-Man: Far From Home',type:'movie',phase:'Phase Three'},
-{date:'JAN 2021',title:'WandaVision',type:'series',phase:'Phase Four'},{date:'MAR 2021',title:'The Falcon and the Winter Soldier',type:'series',phase:'Phase Four'},{date:'JUN 2021',title:'Loki',type:'series',phase:'Phase Four'},{date:'JUL 2021',title:'Black Widow',type:'movie',phase:'Phase Four'},{date:'SEP 2021',title:'Shang-Chi and the Legend of the Ten Rings',type:'movie',phase:'Phase Four'},{date:'NOV 2021',title:'Eternals',type:'movie',phase:'Phase Four'},{date:'DEC 2021',title:'Spider-Man: No Way Home',type:'movie',phase:'Phase Four'},{date:'MAR 2022',title:'Moon Knight',type:'series',phase:'Phase Four'},{date:'MAY 2022',title:'Doctor Strange in the Multiverse of Madness',type:'movie',phase:'Phase Four'},{date:'JUN 2022',title:'Ms. Marvel',type:'series',phase:'Phase Four'},{date:'JUL 2022',title:'Thor: Love and Thunder',type:'movie',phase:'Phase Four'},{date:'AUG 2022',title:'She-Hulk: Attorney at Law',type:'series',phase:'Phase Four'},{date:'NOV 2022',title:'Black Panther: Wakanda Forever',type:'movie',phase:'Phase Four'},
-{date:'FEB 2023',title:'Ant-Man and the Wasp: Quantumania',type:'movie',phase:'Phase Five'},{date:'MAY 2023',title:'Guardians of the Galaxy Vol. 3',type:'movie',phase:'Phase Five'},{date:'JUN 2023',title:'Secret Invasion',type:'series',phase:'Phase Five'},{date:'OCT 2023',title:'Loki Season 2',type:'series',phase:'Phase Five'},{date:'NOV 2023',title:'The Marvels',type:'movie',phase:'Phase Five'},{date:'JAN 2024',title:'Echo',type:'series',phase:'Phase Five'},{date:'JUL 2024',title:'Deadpool & Wolverine',type:'movie',phase:'Phase Five'},{date:'SEP 2024',title:'Agatha All Along',type:'series',phase:'Phase Five'},{date:'FEB 2025',title:'Captain America: Brave New World',type:'movie',phase:'Phase Five'},{date:'MAR 2025',title:'Daredevil: Born Again',type:'series',phase:'Phase Five'},{date:'MAY 2025',title:'Thunderbolts*',type:'movie',phase:'Phase Five'},{date:'JUN 2025',title:'Ironheart',type:'series',phase:'Phase Five'},{date:'JUL 2025',title:'The Fantastic Four: First Steps',type:'movie',phase:'Phase Six'},{date:'JUL 2026',title:'Spider-Man: Brand New Day',type:'movie',phase:'Phase Six'}];
+  const poster = (p, compact=false) => {
+    const media = p.poster
+      ? `<img src="${p.poster}" alt="${p.title} poster" loading="lazy">`
+      : `<div class="poster-fallback"><span>MARVEL STUDIOS</span><strong>${p.title}</strong><small>${formatMonth(p.release)}</small></div>`;
+    return `<article class="poster-card${compact?' compact':''}" data-project="${p.slug}">
+      <div class="poster-media">${media}<span class="phase-pill">P${p.phase}</span></div>
+      <div class="poster-info"><span>${formatMonth(p.release)} · ${typeLabel(p.type)}</span><h3>${p.title}</h3><p>${phaseLabel(p.phase)}</p></div>
+    </article>`;
+  };
 
-const phases=[
-{n:'PHASE ONE',saga:'Infinity Saga',years:'2008–2012',desc:'Origins, first meetings, and the formation of the Avengers.'},{n:'PHASE TWO',saga:'Infinity Saga',years:'2013–2015',desc:'The universe gets bigger while cracks form inside Earth’s defenses.'},{n:'PHASE THREE',saga:'Infinity Saga',years:'2016–2019',desc:'Civil War, Thanos, the Snap, and the end of the Infinity Saga.'},{n:'PHASE FOUR',saga:'Multiverse Saga',years:'2021–2022',desc:'A new generation arrives as the multiverse begins opening up.'},{n:'PHASE FIVE',saga:'Multiverse Saga',years:'2023–2025',desc:'Street-level, cosmic and multiversal stories collide.'},{n:'PHASE SIX',saga:'Multiverse Saga',years:'2025–2027',desc:'The Fantastic Four arrive and the road leads toward Doomsday and Secret Wars.'}];
+  const sectionTitle = (eyebrow, title, copy='') => `<div class="section-head"><div><p class="eyebrow">${eyebrow}</p><h2>${title}</h2></div>${copy?`<p>${copy}</p>`:''}</div>`;
 
-const posterMap={
-'Iron Man':'https://upload.wikimedia.org/wikipedia/en/0/02/Iron_Man_%282008_film%29_poster.jpg','The Incredible Hulk':'https://upload.wikimedia.org/wikipedia/en/f/f0/The_Incredible_Hulk_%28film%29_poster.jpg','Iron Man 2':'https://upload.wikimedia.org/wikipedia/en/e/ed/Iron_Man_2_poster.jpg','Thor':'https://upload.wikimedia.org/wikipedia/en/9/95/Thor_%28film%29_poster.jpg','Captain America: The First Avenger':'https://upload.wikimedia.org/wikipedia/en/3/37/Captain_America_The_First_Avenger_poster.jpg','The Avengers':'https://upload.wikimedia.org/wikipedia/en/8/8a/The_Avengers_%282012_film%29_poster.jpg','Iron Man 3':'https://upload.wikimedia.org/wikipedia/en/1/19/Iron_Man_3_poster.jpg','Thor: The Dark World':'https://upload.wikimedia.org/wikipedia/en/7/7f/Thor_The_Dark_World_poster.jpg','Captain America: The Winter Soldier':'https://upload.wikimedia.org/wikipedia/en/9/9e/Captain_America_The_Winter_Soldier_poster.jpg','Guardians of the Galaxy':'https://upload.wikimedia.org/wikipedia/en/3/33/Guardians_of_the_Galaxy_%28film%29_poster.jpg','Avengers: Age of Ultron':'https://upload.wikimedia.org/wikipedia/en/f/ff/Avengers_Age_of_Ultron_poster.jpg','Ant-Man':'https://upload.wikimedia.org/wikipedia/en/1/12/Ant-Man_%28film%29_poster.jpg','Captain America: Civil War':'https://upload.wikimedia.org/wikipedia/en/5/53/Captain_America_Civil_War_poster.jpg','Doctor Strange':'https://upload.wikimedia.org/wikipedia/en/a/a1/Doctor_Strange_%282016_film%29_poster.jpg','Guardians of the Galaxy Vol. 2':'https://upload.wikimedia.org/wikipedia/en/3/32/Guardians_of_the_Galaxy_Vol._2_poster.jpg','Spider-Man: Homecoming':'https://upload.wikimedia.org/wikipedia/en/f/f9/Spider-Man_Homecoming_poster.jpg','Thor: Ragnarok':'https://upload.wikimedia.org/wikipedia/en/7/7d/Thor_Ragnarok_poster.jpg','Black Panther':'https://upload.wikimedia.org/wikipedia/en/d/d6/Black_Panther_%28film%29_poster.jpg','Avengers: Infinity War':'https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg','Ant-Man and the Wasp':'https://upload.wikimedia.org/wikipedia/en/2/2c/Ant-Man_and_the_Wasp_poster.jpg','Captain Marvel':'https://upload.wikimedia.org/wikipedia/en/4/4e/Captain_Marvel_%28film%29_poster.jpg','Avengers: Endgame':'https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg','Spider-Man: Far From Home':'https://upload.wikimedia.org/wikipedia/en/b/bd/Spider-Man_Far_From_Home_poster.jpg','Black Widow':'https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg','Shang-Chi and the Legend of the Ten Rings':'https://upload.wikimedia.org/wikipedia/en/7/74/Shang-Chi_and_the_Legend_of_the_Ten_Rings_poster.jpeg','Eternals':'https://upload.wikimedia.org/wikipedia/en/9/9b/Eternals_%28film%29_poster.jpeg','Spider-Man: No Way Home':'https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg','Doctor Strange in the Multiverse of Madness':'https://upload.wikimedia.org/wikipedia/en/1/17/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg','Thor: Love and Thunder':'https://upload.wikimedia.org/wikipedia/en/8/88/Thor_Love_and_Thunder_poster.jpeg','Black Panther: Wakanda Forever':'https://upload.wikimedia.org/wikipedia/en/3/3b/Black_Panther_Wakanda_Forever_poster.jpg','Ant-Man and the Wasp: Quantumania':'https://upload.wikimedia.org/wikipedia/en/3/30/Ant-Man_and_the_Wasp_Quantumania_poster.jpg','Guardians of the Galaxy Vol. 3':'https://upload.wikimedia.org/wikipedia/en/7/74/Guardians_of_the_Galaxy_Vol._3_poster.jpg','The Marvels':'https://upload.wikimedia.org/wikipedia/en/7/7a/The_Marvels_poster.jpg','Deadpool & Wolverine':'https://upload.wikimedia.org/wikipedia/en/4/4c/Deadpool_%26_Wolverine_poster.jpg','Captain America: Brave New World':'https://upload.wikimedia.org/wikipedia/en/a/a4/Captain_America_Brave_New_World_poster.jpg','Thunderbolts*':'https://upload.wikimedia.org/wikipedia/en/9/90/Thunderbolts%2A_poster.jpg','The Fantastic Four: First Steps':'https://upload.wikimedia.org/wikipedia/en/1/13/The_Fantastic_Four_First_Steps_poster.jpg','Spider-Man: Brand New Day':'https://upload.wikimedia.org/wikipedia/en/9/9a/Spider-Man_Brand_New_Day_poster.jpg'};
+  const nextCard = p => `<a class="next-card" href="${p.marvelUrl || '#release-order'}" ${p.marvelUrl?'target="_blank" rel="noopener"':''}>
+    <div><span class="status-dot"></span><span>${p.status || 'Upcoming'}</span></div>
+    <strong>${p.title}</strong><small>${formatMonthLong(p.release)}</small><b>↗</b>
+  </a>`;
 
-const artPresets=[['#7f151b','#d6a538'],['#17384b','#5ca15d'],['#771117','#c3c5ca'],['#273e62','#9bb8d2'],['#9d1522','#e5dfcc'],['#283653','#8a2c32']];
-const libraryItems=timelineItems.map((x,i)=>({...x,year:x.date.slice(-4),poster:posterMap[x.title]||'',colors:artPresets[i%artPresets.length]}));
+  function renderHome(){
+    const featured = bySlug(featuredSlug);
+    const recent = sorted.filter(p=>p.release<=featured.release).slice(-5).reverse();
+    const next = nextUpSlugs.map(bySlug).filter(Boolean);
+    app.innerHTML = `
+      <section class="home-hero" style="--hero-image:url('${featured.backdrop || featured.poster}')">
+        <div class="hero-noise"></div>
+        <div class="hero-content shell">
+          <p class="eyebrow">MCU CENTRAL · V2</p>
+          <div class="hero-badge">Latest movie in this data snapshot</div>
+          <h1>${featured.title}</h1>
+          <p class="hero-meta">${formatMonthLong(featured.release)} <i></i> ${phaseLabel(featured.phase)} <i></i> ${featured.saga}</p>
+          <p class="hero-copy">Your MCU release guide, library, phases and trailers — rebuilt as a cleaner, faster app.</p>
+          <div class="hero-actions">
+            ${featured.trailer?`<a class="button primary" href="${featured.trailer}" target="_blank" rel="noopener">▶ Watch trailer</a>`:''}
+            <a class="button glass" href="#release-order">View release order</a>
+          </div>
+        </div>
+      </section>
 
-const releaseStack=document.querySelector('#releaseStack'),recentGrid=document.querySelector('#recentGrid'),timelineList=document.querySelector('#timelineList'),phaseGrid=document.querySelector('#phaseGrid'),libraryGrid=document.querySelector('#libraryGrid'),searchInput=document.querySelector('#librarySearch');
-let timelineFilter='movie',libraryFilter='all';
-releaseStack.innerHTML=releaseStackItems.map((item,i)=>`<a class="release-row" href="${item.url}" target="_blank" rel="noopener"><div><span class="status ${i===0?'next':''}">${item.status}</span><strong>${item.date}</strong></div><div><h3>${item.title}</h3><p>${item.detail}</p></div><b>↗</b></a>`).join('');
-recentGrid.innerHTML=recentItems.map(item=>`<a class="recent-card" href="${item.url}" target="_blank" rel="noopener">${item.image?`<img src="${item.image}" alt="${item.title} poster">`:`<div class="recent-placeholder">${item.title.split(' ').map(w=>w[0]).join('').slice(0,3)}</div>`}<div><span>${item.year} · ${item.type}</span><h3>${item.title}</h3></div></a>`).join('');
-function renderTimeline(){const visible=timelineItems.filter(x=>timelineFilter==='all'||x.type===timelineFilter);timelineList.innerHTML=visible.map(x=>`<article class="timeline-item"><span class="timeline-year">${x.date}</span><div><strong>${x.title}</strong><small>${x.phase}</small></div><span>${x.type==='movie'?'Movie':'Series'}</span></article>`).join('')}
-function renderPhases(){phaseGrid.innerHTML=phases.map((p,i)=>`<article class="phase-card"><span>0${i+1} · ${p.saga}</span><h3>${p.n}</h3><b>${p.years}</b><p>${p.desc}</p></article>`).join('')}
-function renderLibrary(){const q=searchInput.value.trim().toLowerCase();const visible=libraryItems.filter(x=>(libraryFilter==='all'||x.type===libraryFilter)&&x.title.toLowerCase().includes(q));libraryGrid.innerHTML=visible.map(x=>{const [a,b]=x.colors;const media=x.poster?`<div class="poster-media has-poster"><img src="${x.poster}" alt="${x.title} poster" loading="lazy"></div>`:`<div class="poster-media"><div class="title-art" style="--card-a:${a};--card-b:${b}"><span class="art-phase">${x.phase}</span><span class="art-marvel">MARVEL STUDIOS</span><strong>${x.title}</strong><span class="art-year">${x.year}</span></div></div>`;return `<article class="poster-card">${media}<div class="poster-copy"><span>${x.date} · ${x.type==='movie'?'Movie':'Series'}</span><h3>${x.title}</h3><p>${x.phase}</p></div></article>`}).join('')||'<p class="section-note">No matches.</p>'}
-document.querySelectorAll('[data-timeline-filter]').forEach(btn=>btn.onclick=()=>{timelineFilter=btn.dataset.timelineFilter;document.querySelectorAll('[data-timeline-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderTimeline()});
-document.querySelectorAll('[data-library-filter]').forEach(btn=>btn.onclick=()=>{libraryFilter=btn.dataset.libraryFilter;document.querySelectorAll('[data-library-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderLibrary()});
-searchInput.addEventListener('input',renderLibrary);const menuButton=document.querySelector('#menuButton'),mainNav=document.querySelector('#mainNav');menuButton.onclick=()=>mainNav.classList.toggle('open');mainNav.querySelectorAll('a').forEach(a=>a.onclick=()=>mainNav.classList.remove('open'));document.querySelectorAll('[data-timeline-filter]').forEach(b=>b.classList.toggle('active',b.dataset.timelineFilter==='movie'));renderTimeline();renderPhases();renderLibrary();
+      <div class="shell home-shell">
+        <section class="home-block next-up-block">
+          ${sectionTitle('ON DECK','Next up','The next projects in the current MCU Central data snapshot.')}
+          <div class="next-grid">${next.map(nextCard).join('')}</div>
+        </section>
+
+        <section class="home-block">
+          <div class="section-head inline"><div><p class="eyebrow">RECENT</p><h2>Catch up</h2></div><a class="text-link" href="#movies">Browse movies →</a></div>
+          <div class="poster-rail">${recent.map(p=>poster(p,true)).join('')}</div>
+        </section>
+
+        <section class="home-block">
+          ${sectionTitle('EXPLORE','Pick a door')}
+          <div class="destination-grid">
+            <a class="destination-card movies" href="#movies"><span>01</span><div><small>THE LIBRARY</small><strong>Movies</strong><p>Every MCU movie in release order.</p></div><b>→</b></a>
+            <a class="destination-card tv" href="#tv"><span>02</span><div><small>MARVEL TELEVISION</small><strong>TV</strong><p>Series from WandaVision forward.</p></div><b>→</b></a>
+            <a class="destination-card timeline" href="#release-order"><span>03</span><div><small>2008 → NOW</small><strong>Release order</strong><p>Movies and television in one stream.</p></div><b>→</b></a>
+            <a class="destination-card sagas" href="#phases"><span>04</span><div><small>THE BIG PICTURE</small><strong>Sagas & phases</strong><p>Explore the Infinity and Multiverse sagas.</p></div><b>→</b></a>
+          </div>
+        </section>
+      </div>`;
+  }
+
+  function renderLibrary(type){
+    const label = type==='movie'?'Movies':'Television';
+    const description = type==='movie' ? 'The MCU on the big screen, from Iron Man forward.' : 'Marvel Studios and Marvel Television series in release order.';
+    const list = sorted.filter(p=>p.type===type);
+    app.innerHTML = `<div class="page shell">
+      <header class="page-hero"><p class="eyebrow">MCU LIBRARY</p><h1>${label}</h1><p>${description}</p><div class="stat-row"><span><strong>${list.length}</strong> projects</span><span><strong>${new Set(list.map(p=>p.phase)).size}</strong> phases</span></div></header>
+      <div class="library-toolbar sticky-tools"><label class="search-field"><span>⌕</span><input id="librarySearch" type="search" autocomplete="off" placeholder="Search ${label.toLowerCase()}…"></label><div class="chip-row" id="phaseFilters"><button class="chip active" data-phase="all">All phases</button>${phases.map(p=>`<button class="chip" data-phase="${p.number}">Phase ${p.number}</button>`).join('')}</div></div>
+      <section><div class="poster-grid" id="libraryGrid"></div><p class="empty-state" id="emptyState" hidden>No projects match that search.</p></section>
+    </div>`;
+
+    const grid = document.querySelector('#libraryGrid');
+    const search = document.querySelector('#librarySearch');
+    let activePhase='all';
+    const draw=()=>{
+      const q=search.value.trim().toLowerCase();
+      const visible=list.filter(p=>(activePhase==='all'||String(p.phase)===activePhase)&&p.title.toLowerCase().includes(q));
+      grid.innerHTML=visible.map(p=>poster(p)).join('');
+      document.querySelector('#emptyState').hidden=visible.length>0;
+    };
+    document.querySelectorAll('[data-phase]').forEach(btn=>btn.addEventListener('click',()=>{
+      activePhase=btn.dataset.phase;
+      document.querySelectorAll('[data-phase]').forEach(b=>b.classList.toggle('active',b===btn));
+      draw();
+    }));
+    search.addEventListener('input',draw);
+    draw();
+  }
+
+  function renderReleaseOrder(){
+    const years=[...new Set(sorted.map(p=>p.release.slice(0,4)))].sort();
+    app.innerHTML=`<div class="page shell release-page">
+      <header class="page-hero"><p class="eyebrow">2008 → ${years.at(-1)}</p><h1>Release order</h1><p>One chronological stream for MCU movies and series, grouped by release year.</p></header>
+      <div class="segmented-control sticky-tools" id="releaseFilters"><button class="active" data-type="all">All</button><button data-type="movie">Movies</button><button data-type="series">TV</button></div>
+      <div class="timeline-v2" id="releaseTimeline"></div>
+    </div>`;
+    let filter='all';
+    const draw=()=>{
+      const visible=sorted.filter(p=>filter==='all'||p.type===filter);
+      const groups=[...new Set(visible.map(p=>p.release.slice(0,4)))];
+      document.querySelector('#releaseTimeline').innerHTML=groups.map(year=>`<section class="year-group"><div class="year-marker"><span>${year}</span></div><div class="year-items">${visible.filter(p=>p.release.startsWith(year)).map((p,i)=>`<article class="release-item"><div class="release-index">${String(i+1).padStart(2,'0')}</div><div class="release-date">${formatMonth(p.release).replace(` ${year}`,'')}</div><div class="release-main"><strong>${p.title}</strong><span>${phaseLabel(p.phase)} · ${p.saga}</span></div><div class="type-tag">${typeLabel(p.type)}</div></article>`).join('')}</div></section>`).join('');
+    };
+    document.querySelectorAll('[data-type]').forEach(btn=>btn.addEventListener('click',()=>{filter=btn.dataset.type;document.querySelectorAll('[data-type]').forEach(b=>b.classList.toggle('active',b===btn));draw();}));
+    draw();
+  }
+
+  function renderPhases(){
+    const infinity=phases.filter(p=>p.saga==='Infinity Saga');
+    const multiverse=phases.filter(p=>p.saga==='Multiverse Saga');
+    const phaseCard=p=>{const list=sorted.filter(x=>x.phase===p.number);return `<article class="phase-card-v2"><div class="phase-number">0${p.number}</div><div class="phase-card-copy"><span>${p.saga}</span><h3>${p.name}</h3><strong>${p.years}</strong><p>${p.description}</p><div class="phase-projects"><b>${list.length}</b> projects <i></i> ${list.filter(x=>x.type==='movie').length} movies <i></i> ${list.filter(x=>x.type==='series').length} series</div></div></article>`};
+    const saga=(name,sub,items,kind)=>`<section class="saga-section ${kind}"><div class="saga-title"><p class="eyebrow">${sub}</p><h2>${name}</h2><p>${name==='Infinity Saga'?'The first eleven years of the MCU — from Tony Stark’s cave to the final battle with Thanos.':'The post-Endgame era expands the MCU across new heroes, television and the multiverse.'}</p></div><div class="phase-stack">${items.map(phaseCard).join('')}</div></section>`;
+    app.innerHTML=`<div class="page shell"><header class="page-hero"><p class="eyebrow">THE BIG PICTURE</p><h1>Sagas & phases</h1><p>The MCU organized into its major eras.</p></header>${saga('Infinity Saga','2008–2019',infinity,'infinity')}${saga('Multiverse Saga','2021–2027',multiverse,'multiverse')}</div>`;
+  }
+
+  function renderTrailers(){
+    const items=sorted.filter(p=>p.trailer).reverse();
+    app.innerHTML=`<div class="page shell"><header class="page-hero"><p class="eyebrow">WATCH</p><h1>Trailer vault</h1><p>Official trailers and teasers linked from the projects in MCU Central.</p></header><div class="trailer-list">${items.map((p,i)=>`<a class="trailer-card-v2${i===0?' featured':''}" href="${p.trailer}" target="_blank" rel="noopener"><div class="trailer-art" style="background-image:linear-gradient(90deg,rgba(5,6,9,.1),rgba(5,6,9,.75)),url('${p.backdrop || p.poster}')"><span class="play-button">▶</span></div><div class="trailer-copy"><span>${formatMonthLong(p.release)} · ${typeLabel(p.type)}</span><h2>${p.title}</h2><p>${phaseLabel(p.phase)} · ${p.saga}</p><b>Watch on YouTube ↗</b></div></a>`).join('')}</div></div>`;
+  }
+
+  function renderRoute(route){
+    document.body.dataset.route=route;
+    if(route==='movies') renderLibrary('movie');
+    else if(route==='tv') renderLibrary('series');
+    else if(route==='release-order') renderReleaseOrder();
+    else if(route==='phases') renderPhases();
+    else if(route==='trailers') renderTrailers();
+    else renderHome();
+    app.focus({preventScroll:true});
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+
+  window.MCUApp={renderRoute};
+})();

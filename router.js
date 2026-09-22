@@ -1,72 +1,51 @@
 (() => {
-  const sections = Array.from(document.querySelectorAll('main > section'));
-  const homeSections = [
-    document.querySelector('#home'),
-    document.querySelector('#releases'),
-    document.querySelector('.latest-section')
-  ].filter(Boolean);
-  const routeSections = {
-    'release-order': [document.querySelector('#timeline')],
-    phases: [document.querySelector('#phases')],
-    movies: [document.querySelector('#library')],
-    tv: [document.querySelector('#library')],
-    trailers: [document.querySelector('#trailers')]
-  };
+  const routes = new Set(['home','movies','tv','release-order','phases','trailers']);
+  const drawer = document.querySelector('#mobileDrawer');
+  const scrim = document.querySelector('#drawerScrim');
+  const menuButton = document.querySelector('#menuButton');
+  const closeButton = document.querySelector('#drawerClose');
+  const moreButton = document.querySelector('#moreButton');
 
-  function clickFilter(value) {
-    const button = document.querySelector(`[data-library-filter="${value}"]`);
-    if (button && !button.classList.contains('active')) button.click();
+  function openDrawer(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    scrim.hidden=false;
+    menuButton.setAttribute('aria-expanded','true');
+    document.body.classList.add('drawer-open');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    scrim.hidden=true;
+    menuButton.setAttribute('aria-expanded','false');
+    document.body.classList.remove('drawer-open');
+  }
+  function activeRoute(){
+    const raw=location.hash.slice(1) || 'home';
+    return routes.has(raw)?raw:'home';
+  }
+  function syncNav(route){
+    document.querySelectorAll('[data-route-link]').forEach(link=>link.classList.toggle('active',link.dataset.routeLink===route));
+    const title=route==='home'?'MCU Central':`${route.replace('-', ' ').replace(/\b\w/g,c=>c.toUpperCase())} · MCU Central`;
+    document.title=title;
+  }
+  function route(){
+    const current=activeRoute();
+    syncNav(current);
+    closeDrawer();
+    window.MCUApp.renderRoute(current);
   }
 
-  function setActiveNav(route) {
-    document.querySelectorAll('#mainNav a').forEach(link => {
-      const target = link.getAttribute('href').replace('#', '');
-      link.classList.toggle('active', target === route || (route === 'home' && target === 'home'));
-    });
-  }
-
-  function closeMenu() {
-    const nav = document.querySelector('#mainNav');
-    if (nav) nav.classList.remove('open');
-  }
-
-  function route() {
-    let name = location.hash.slice(1) || 'home';
-    if (name === 'timeline') name = 'release-order';
-    if (name === 'library') name = 'movies';
-    if (!['home', 'release-order', 'movies', 'tv', 'phases', 'trailers'].includes(name)) name = 'home';
-
-    sections.forEach(section => { section.hidden = true; });
-    const visible = name === 'home' ? homeSections : routeSections[name];
-    visible.filter(Boolean).forEach(section => { section.hidden = false; });
-
-    const libraryTitle = document.querySelector('#libraryTitle');
-    const filterRow = document.querySelector('#library .filter-row');
-    if (name === 'movies') {
-      clickFilter('movie');
-      if (libraryTitle) libraryTitle.textContent = 'Movies';
-      if (filterRow) filterRow.hidden = true;
-    } else if (name === 'tv') {
-      clickFilter('series');
-      if (libraryTitle) libraryTitle.textContent = 'TV Shows';
-      if (filterRow) filterRow.hidden = true;
-    } else if (filterRow) {
-      filterRow.hidden = false;
-    }
-
-    document.body.dataset.route = name;
-    document.title = name === 'home' ? 'MCU Central' : `${name.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())} · MCU Central`;
-    setActiveNav(name);
-    closeMenu();
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
-
-  window.addEventListener('hashchange', route);
+  menuButton.addEventListener('click',openDrawer);
+  closeButton.addEventListener('click',closeDrawer);
+  moreButton.addEventListener('click',openDrawer);
+  scrim.addEventListener('click',closeDrawer);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
+  window.addEventListener('hashchange',route);
   route();
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
-    });
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
   }
 })();

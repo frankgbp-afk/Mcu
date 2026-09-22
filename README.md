@@ -2,22 +2,31 @@
 
 A fan-made, phone-first Marvel Cinematic Universe hub.
 
-## First build
+## V2 redesign
 
-- MCU-inspired responsive homepage
-- Curated story timeline with movie/series filters
-- Phase and saga explorer
-- Searchable Movies & Shows library
-- Upcoming release tracker
-- PWA-ready web manifest
+V2 keeps the lightweight vanilla HTML/CSS/JS and PWA foundation while rebuilding the interface around a cleaner app shell and one canonical MCU project dataset.
 
-## Planned next
+### Included in V2
 
-- Full canon timeline
-- Poster and key-art integration
-- Live Marvel news feed
-- Official trailer vault
-- Character pages
+- Cinematic home dashboard with featured and next-up projects
+- Dedicated Movies and Television experiences
+- Search and phase filtering
+- Redesigned release-order timeline grouped by year
+- Saga and phase explorer
+- Trailer vault generated from project data
+- Mobile bottom navigation and slide-out menu
+- Unified responsive design (no separate mobile patch stylesheet)
+- Network-first service worker with offline fallback
+- Central `data.js` project source used across every page
+
+### Next ideas
+
+- Individual project detail pages
 - Watch / rewatch tracking
+- Character pages
+- Full canon/story timeline
+- News and release-data refresh workflow
+
+Data in the V2 branch is based on the existing MCU Central snapshot and should be refreshed independently from the visual redesign.
 
 This is a fan project and is not affiliated with Marvel or Disney.

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MCU Central icon">
+  <rect width="512" height="512" rx="112" fill="#09090d"/>
+  <rect x="34" y="34" width="444" height="444" rx="92" fill="none" stroke="#b51f2e" stroke-width="18"/>
+  <path d="M126 362V150h64l66 104 66-104h64v212h-58V244l-72 108-72-108v118z" fill="#f4f4f5"/>
+  <path d="M119 402h274" stroke="#b51f2e" stroke-width="16" stroke-linecap="round"/>
+</svg>

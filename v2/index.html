@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#090a0e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>MCU Central</title>
+  <meta name="description" content="A fan-made, phone-first MCU release guide, library and timeline." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="MCU Central home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-copy"><strong>MCU</strong><small>CENTRAL</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#home" data-route-link="home">Home</a>
+      <a href="#movies" data-route-link="movies">Movies</a>
+      <a href="#tv" data-route-link="tv">TV</a>
+      <a href="#release-order" data-route-link="release-order">Release order</a>
+      <a href="#phases" data-route-link="phases">Sagas</a>
+      <a href="#trailers" data-route-link="trailers">Trailers</a>
+    </nav>
+    <button class="icon-button menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+  </header>
+
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-head"><span>Explore MCU Central</span><button class="icon-button" id="drawerClose" type="button" aria-label="Close menu">×</button></div>
+    <nav aria-label="Mobile menu">
+      <a href="#home" data-route-link="home">Home</a>
+      <a href="#movies" data-route-link="movies">Movies</a>
+      <a href="#tv" data-route-link="tv">Television</a>
+      <a href="#release-order" data-route-link="release-order">Release order</a>
+      <a href="#phases" data-route-link="phases">Sagas & phases</a>
+      <a href="#trailers" data-route-link="trailers">Trailer vault</a>
+    </nav>
+  </aside>
+  <div class="drawer-scrim" id="drawerScrim" hidden></div>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <div><strong>MCU CENTRAL</strong><span>Fan-made. Not affiliated with Marvel or Disney.</span></div>
+    <span id="dataSnapshot"></span>
+  </footer>
+
+  <nav class="bottom-nav" aria-label="Quick navigation">
+    <a href="#home" data-route-link="home"><span aria-hidden="true">⌂</span><small>Home</small></a>
+    <a href="#movies" data-route-link="movies"><span aria-hidden="true">▣</span><small>Movies</small></a>
+    <a href="#tv" data-route-link="tv"><span aria-hidden="true">▤</span><small>TV</small></a>
+    <a href="#release-order" data-route-link="release-order"><span aria-hidden="true">≡</span><small>Timeline</small></a>
+    <button type="button" id="moreButton"><span aria-hidden="true">•••</span><small>More</small></button>
+  </nav>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="router.js"></script>
+</body>
+</html>
